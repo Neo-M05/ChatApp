@@ -22,7 +22,7 @@ public class ChatApp {
         String LoginPass;
         
         System.out.println("--Registration---");
-        //this is what the user is going to promt/ enter
+        // Prompt user for registration details
         System.out.println("enter your username: ");
         userName = input.nextLine();
           
@@ -32,7 +32,7 @@ public class ChatApp {
         System.out.println("enter your number ");
         phoneNumber = input.nextLine();
         
-        //this is the object for login class the auth is to authiticate the user 
+        // Create Login object (auth) to handle user authentication
        Login auth = new Login(userName, passWord);
        
          System.out.println(auth.registerUser());
@@ -45,7 +45,7 @@ public class ChatApp {
         else{
             System.out.println("cell phone number incorrectly formatted or does not contain international code");
         }
-        //this is the login part
+       // Start Login Process
         System.out.println("--Login---");
         
         System.out.println("enter username");
@@ -53,7 +53,7 @@ public class ChatApp {
         
         System.out.println("enter password: ");
         LoginPass = input.nextLine();
-        //here the boolean checks that if it is a sucess it must pass it through
+        // Verify login credentials and display status
         boolean success = auth.loginUser(LoginUser, LoginPass);
         System.out.println(auth.returnLoginStatus(success));
     }

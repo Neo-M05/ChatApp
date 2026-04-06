@@ -11,22 +11,23 @@ package com.mycompany.chatapp;
  */
 public class Login {
     
-       private String userName;
+   private String userName;
    private String passWord;
   
    
    
    public Login(String userName, String passWord){
     
+     // Constructor to initialize the login object
        this.userName = userName;
        this.passWord = passWord;
       
    }
-
+    // Validates that username contains '_' and is max 5 characters
     public boolean checkUserName() {
         return userName.contains("_") && userName.length() <= 5;
     }
-
+// Validates password complexity: 8+ chars, capital, number, special char
     public boolean checkPasswordComplexity() {
         boolean hasCapital = false;
         boolean hasNumber = false;
@@ -40,7 +41,7 @@ public class Login {
         }
         return passWord.length() >= 8 && hasCapital && hasNumber && hasSpecial;
     }
-    
+    // Validates phone number against international format. this appear double in the login and chat app class to work for the unit Test
        public boolean checkPhoneNumber(String phoneNumber) {
        return phoneNumber.matches("\\+27[0-9]{9}");
   }

@@ -16,7 +16,7 @@ public class LoginTest {
     
     @Test
     public void TestUserNameCorrect(){
-        //this is the objective
+        //this is the objective and  Test case for valid username format (underscore and length <= 5)
         Login auth = new Login("kyl_1","P@ssword1");
         
         boolean actual = auth.checkUserName();
@@ -27,7 +27,7 @@ public class LoginTest {
     
       @Test
     public void TestpasswordSuccess (){
-     // object of the password
+     // object of the password and  Test case for a password that meets all complexity requirements
      Login auth = new Login("user_", "Ch&&sec@ke99!");
      
      boolean actual = auth.checkPasswordComplexity();
@@ -40,7 +40,7 @@ public class LoginTest {
         
         Login auth = new Login("kyl_1", "Ch&&sec@ke99!");
         
-        // Act: Get the message from your registerUser method
+        //  Get the message from your registerUser method
         String actual = auth.registerUser();
         String expected = "Username and Password successfully captured.";
         
