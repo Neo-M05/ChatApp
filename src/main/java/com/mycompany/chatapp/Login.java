@@ -11,66 +11,71 @@ package com.mycompany.chatapp;
  */
 public class Login {
     
-   private String userName;
-   private String passWord;
-  
-   
-   
-   public Login(String userName, String passWord){
-    
-     // Constructor to initialize the login object
-       this.userName = userName;
-       this.passWord = passWord;
-      
-   }
-    // Validates that username contains '_' and is max 5 characters
+  private String userName;
+    private String passWord;
+    private String firstName;
+    private String lastName;
+
+    // Constructor updated to include names required for the welcome message
+    public Login(String userName, String passWord, String firstName, String lastName) {
+        this.userName = userName;
+        this.passWord = passWord;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    // Task 1: Username must contain '_' and be <= 5 characters
     public boolean checkUserName() {
         return userName.contains("_") && userName.length() <= 5;
     }
-// Validates password complexity: 8+ chars, capital, number, special char
-    public boolean checkPasswordComplexity() {
-        boolean hasCapital = false;
-        boolean hasNumber = false;
-        boolean hasSpecial = false;
 
+    // Task 1: Password complexity requirements
+    public boolean checkPasswordComplexity() {
+        boolean hasCap = false, hasNum = false, hasSpec = false;
         for (int i = 0; i < passWord.length(); i++) {
             char ch = passWord.charAt(i);
-            if (Character.isUpperCase(ch)) hasCapital = true;
-            if (Character.isDigit(ch)) hasNumber = true;
-            if (!Character.isLetterOrDigit(ch)) hasSpecial = true;
+            if (Character.isUpperCase(ch)) hasCap = true;
+            if (Character.isDigit(ch)) hasNum = true;
+            if (!Character.isLetterOrDigit(ch)) hasSpec = true;
         }
-        return passWord.length() >= 8 && hasCapital && hasNumber && hasSpecial;
+        return passWord.length() >= 8 && hasCap && hasNum && hasSpec;
     }
-    // Validates phone number against international format. this appear double in the login and chat app class to work for the unit Test
-       public boolean checkPhoneNumber(String phoneNumber) {
-       return phoneNumber.matches("\\+27[0-9]{9}");
-  }
 
-    public String registerUser() {
-        
+    
+    // Regex reference: https://www.w3schools.com/java/java_regex.asp
+    // Additional reference: https://www.geeksforgeeks.org/dsa/write-regular-expressions/
+    public boolean checkCellPhoneNumber(String phone) {
+        return phone.matches("^\\+27[0-9]{9}$");
+    }
+
+    // Returns specific error or success messages for each registration part
+    public String registerUser(String phone) {
         if (!checkUserName()) {
             return "Username is not correctly formatted; please ensure that your username contains an underscore and is no more than five characters in length.";
         } 
         if (!checkPasswordComplexity()) {
             return "Password is not correctly formatted; please ensure that the password contains at least eight characters, a capital letter, a number, and a special character.";
         }
-        return "Username and Password successfully captured.";
+        if (!checkCellPhoneNumber(phone)) {
+            return "Cell phone number incorrectly formatted or does not contain international code.";
+        }
+        
+        // FIXED: Returns welcome message (matches unit test expectation)
+        return "Welcome " + firstName + ", " + lastName + " it is great to see you.";
     }
-    
 
-    public boolean loginUser(String enterUser, String enterPass) {
-        return enterUser.equals(this.userName) && enterPass.equals(this.passWord);
+    // Task 2: Authentication logic
+    public boolean loginUser(String userTry, String passTry) {
+        return userTry.equals(this.userName) && passTry.equals(this.passWord);
     }
 
-    public String returnLoginStatus(boolean isLoggedIn) {
-        if (isLoggedIn) {
-            return "Welcome" +" " + userName  + " " + "it is great to see you again ";
+    // Task 2: Formats the success/failure message for login
+    public String returnLoginStatus(boolean isSuccessful) {
+        if (isSuccessful) {
+            // FIXED: Removed "again" to match rubric exactly
+            return "Welcome " + firstName + ", " + lastName + " it is great to see you.";
         } else {
             return "Username or password incorrect, please try again.";
         }
-        
-        
     }
 }
-    
-

@@ -15,53 +15,56 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LoginTest {
     
     @Test
-    public void TestUserNameCorrect(){
-        //this is the objective and  Test case for valid username format (underscore and length <= 5)
-        Login auth = new Login("kyl_1","P@ssword1");
-        
+    public void testUserNameCorrect() {
+        Login auth = new Login("kyl_1", "P@ssword1", "Peter", "Peker");
         boolean actual = auth.checkUserName();
-        
-        assertTrue(actual, "The username kyl_1 should be valid (contain underscore and < 5 chars)");
+        assertTrue(actual, "The username kyl_1 should be valid (contains underscore and <= 5 chars)");
+    }
+    
+    @Test
+    public void testUserNameIncorrect() {
+        // You should ALSO test a failing username
+        Login auth = new Login("kyle!!!!!!!", "P@ssword1", "Peter", "Peker");
+        boolean actual = auth.checkUserName();
+        assertFalse(actual, "Username without underscore should be invalid");
     }
        
-    
-      @Test
-    public void TestpasswordSuccess (){
-     // object of the password and  Test case for a password that meets all complexity requirements
-     Login auth = new Login("user_", "Ch&&sec@ke99!");
-     
-     boolean actual = auth.checkPasswordComplexity();
-     
-     assertTrue(actual,"The password should meet all complexity requirements");
+    @Test
+    public void testPasswordSuccess() {
+        Login auth = new Login("user_", "Ch&&sec@ke99!", "kaylen", "smith");
+        boolean actual = auth.checkPasswordComplexity();
+        assertTrue(actual, "The password should meet all complexity requirements");
     }
     
-   @Test
+    @Test
+    public void testPasswordFailure() {
+        // You should ALSO test a failing password (from rubric)
+        Login auth = new Login("user_", "password", "Peter", "Peker");
+        boolean actual = auth.checkPasswordComplexity();
+        assertFalse(actual, "Password without capital/number/special should fail");
+    }
+    
+    @Test
     public void testRegistrationMessage() {
+        Login auth = new Login("kyl_1", "Ch&&sec@ke99!", "Peter", "Peker");
         
-        Login auth = new Login("kyl_1", "Ch&&sec@ke99!");
+        String phone = "+27838968976"; 
+        String actual = auth.registerUser(phone);
         
-        //  Get the message from your registerUser method
-        String actual = auth.registerUser();
-        String expected = "Username and Password successfully captured.";
-        
-        // Assert: Check if the text matches exactly
+        // FIXED: Matches rubric Screenshot 3
+        String expected = "Welcome Anna, smith it is great to see you.";
         assertEquals(expected, actual);
     }
     
     @Test
-    public void TestPhoneNumbersucess(){
-        Login auth = new Login("user_", "P@ssword1");
-        //using the data from the poe table that was provides
-        assertTrue(auth.checkPhoneNumber("+27838968976"), "Valid SA international format should pass");
-        
+    public void testPhoneNumberSuccess() {
+        Login auth = new Login("kyl_1", "P@ssword1", "Neo", "kaylen");
+        assertTrue(auth.checkCellPhoneNumber("+27838968976"), "Valid SA international format should pass");
     }
+
     @Test
-    public void TestPhoneNumberFailure(){
-        Login auth = new Login("user_","P@ssword1");
-        
-        assertFalse(auth.checkPhoneNumber("08966553"), "Invalid format should fail");
-        
-    
+    public void testPhoneNumberFailure() {
+        Login auth = new Login("user_", "P@ssword1", "Neooo", "kayle");
+        assertFalse(auth.checkCellPhoneNumber("08966553"), "Invalid format should fail");
     }
 }
-
