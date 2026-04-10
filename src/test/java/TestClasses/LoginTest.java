@@ -46,7 +46,7 @@ public class LoginTest {
     
     @Test
     public void testRegistrationMessage() {
-        Login auth = new Login("kyl_1", "Ch&&sec@ke99!", "Peter", "Peker");
+        Login auth = new Login("kyl_1", "Ch&&sec@ke99!", "Anna", "smith");
         
         String phone = "+27838968976"; 
         String actual = auth.registerUser(phone);
