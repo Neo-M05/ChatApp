@@ -23,7 +23,7 @@ public class LoginTest {
     
     @Test
     public void testUserNameIncorrect() {
-        // You should ALSO test a failing username
+       
         Login auth = new Login("kyle!!!!!!!", "P@ssword1", "Peter", "Peker");
         boolean actual = auth.checkUserName();
         assertFalse(actual, "Username without underscore should be invalid");
@@ -38,7 +38,7 @@ public class LoginTest {
     
     @Test
     public void testPasswordFailure() {
-        // You should ALSO test a failing password (from rubric)
+        
         Login auth = new Login("user_", "password", "Peter", "Peker");
         boolean actual = auth.checkPasswordComplexity();
         assertFalse(actual, "Password without capital/number/special should fail");
@@ -51,7 +51,7 @@ public class LoginTest {
         String phone = "+27838968976"; 
         String actual = auth.registerUser(phone);
         
-        // FIXED: Matches rubric Screenshot 3
+        
         String expected = "Welcome Anna, smith it is great to see you.";
         assertEquals(expected, actual);
     }
