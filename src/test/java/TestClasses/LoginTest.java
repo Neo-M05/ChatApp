@@ -67,4 +67,18 @@ public class LoginTest {
         Login auth = new Login("user_", "P@ssword1", "Neooo", "kayle");
         assertFalse(auth.checkCellPhoneNumber("08966553"), "Invalid format should fail");
     }
+    
+     @Test
+    public void testLoginSuccess() {
+        Login auth = new Login("john_doe", "Pass123!", "John", "Doe");
+        boolean result = auth.loginUser("john_doe", "Pass123!");
+        assertTrue(result, "Login should succeed with correct credentials");
+    }
+    
+    @Test
+    public void testLoginFail() {
+        Login auth = new Login("john_doe", "Pass123!", "John", "Doe");
+        boolean result = auth.loginUser("john_doe", "wrongpass");
+        assertFalse(result, "Login should fail with wrong password");
+    }
 }
